@@ -1,19 +1,32 @@
 #pragma once
 
 #include <fstream>
+#include <string>
+class PriorityQueue;
+class Queue;
+class Event;
+class Process;
 using namespace std;
 
-
-class Simulation {
+class Simulation
+{
 private:
+	ifstream inFile;
+	string line;
+	int timeQ;
+	Queue *CPUQ;
+	Queue *IOQ;
+
 	// you will need to add fields
-        // including: Queues for CPU and IO, and priority queues for Events 	
+	// including: Queues for CPU and IO, and priority queues for Events
 public:
 	Simulation();
 
 	// runSimulation -- start the simulation with the given filename.
 	// Called by main.
-	void runSimulation(char *fileName); 
+	void runSimulation(char *fileName);
+
+	void getNextProcess(string line);
 
 	// summary -- print a summary of all the processes, as shown in the
 	// assignment.  Called by main.
@@ -21,4 +34,4 @@ public:
 
 	// you may need to add more methods
 
-};// class Simulation
+}; // class Simulation

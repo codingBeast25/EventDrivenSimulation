@@ -2,18 +2,21 @@
 #include "ListItem.h"
 
 /**** Node implementation */
-Node::Node() : item(nullptr), next(nullptr)  {}
+Node::Node() : item(nullptr), next(nullptr) {}
 
 Node::Node(ListItem *i, Node *n) : item(i), next(n) {}
 
-Node *Node::getNext() {
+Node *Node::getNext()
+{
 	return next;
 }
 
-void Node::setNext(Node *n) {
-	next=n;
+void Node::setNext(Node *n)
+{
+	next = n;
 }
 
-ListItem *Node::getItem() {
+ListItem *Node::getItem()
+{
 	return item;
 }
