@@ -8,3 +8,8 @@ int Event::compareTo(ListItem *other)
 {
 	return -1; // you should implement this method.
 }
+
+int Event::getTime()
+{
+	return this->eventTime;
+}

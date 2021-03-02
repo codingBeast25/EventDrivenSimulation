@@ -14,9 +14,10 @@ private:
 	ifstream inFile;
 	string line;
 	int timeQ;
+	int currTime;
 	Queue *CPUQ;
 	Queue *IOQ;
-
+	PriorityQueue *eventList;
 	// you will need to add fields
 	// including: Queues for CPU and IO, and priority queues for Events
 public:
@@ -27,6 +28,10 @@ public:
 	void runSimulation(char *fileName);
 
 	void getNextProcess(string line);
+
+	void addEvent(Event *currEvent);
+	PriorityQueue *getEventList();
+	void setCurrTime(int time);
 
 	// summary -- print a summary of all the processes, as shown in the
 	// assignment.  Called by main.
