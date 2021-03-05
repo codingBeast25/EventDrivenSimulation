@@ -6,6 +6,7 @@ class PriorityQueue;
 class Queue;
 class Event;
 class Process;
+class Bursts;
 using namespace std;
 
 class Simulation
@@ -17,7 +18,11 @@ private:
 	int currTime;
 	Queue *CPUQ;
 	Queue *IOQ;
+	Queue *processCPUQ;
+	Queue *processIOQ;
 	PriorityQueue *eventList;
+	int id;
+	Queue *processQueue;
 	// you will need to add fields
 	// including: Queues for CPU and IO, and priority queues for Events
 public:
@@ -27,11 +32,18 @@ public:
 	// Called by main.
 	void runSimulation(char *fileName);
 
-	void getNextProcess(string line);
+	void getNextProcess();
 
 	void addEvent(Event *currEvent);
+	void addProcess(Process *currProcess);
+	void addProcessToEnd(Process *currProcess);
+	Process *getCurrProcess();
+	bool isCpuBusy();
+	void addCpuBurstToEnd(int curr);
 	PriorityQueue *getEventList();
 	void setCurrTime(int time);
+	int getCurrTime();
+	int getTimeQ();
 
 	// summary -- print a summary of all the processes, as shown in the
 	// assignment.  Called by main.

@@ -16,9 +16,12 @@ private:
 public:
     Process(int id, int arrivalTime, Queue *cpuQ, Queue *ioQ);
     int getId();
+    Queue *getQueue(int which);
+    int getCPUBurst();
     int getArrTime();
     int getExitTime();
     int getWaitTime();
+    int compareTo(ListItem *other);
     void print();
     ~Process();
-}
+};

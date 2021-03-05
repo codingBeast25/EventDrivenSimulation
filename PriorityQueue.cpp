@@ -13,7 +13,7 @@ void PriorityQueue::enqueue(Event *item)
     Node *temp = new Node(item, nullptr);
     Node *curr; //current node pointer
 
-    if (top == nullptr || item->compareTo(top->getItem()) == 1)
+    if (top == nullptr || item->compareTo(dynamic_cast<ListItem *>(top->getItem())) == 1)
     {
         temp->setNext(top);
         top = temp;
@@ -21,7 +21,7 @@ void PriorityQueue::enqueue(Event *item)
     else
     {
         curr = top;
-        while (curr->getNext() != nullptr && item->compareTo(curr->getNext()->getItem()) == 0)
+        while (curr->getNext() != nullptr && item->compareTo(dynamic_cast<ListItem *>(curr->getNext()->getItem())) == 0)
         {
             curr = curr->getNext();
         }
@@ -37,7 +37,7 @@ ListItem *PriorityQueue::dequeue()
     Node *curr = top;
     if (curr != nullptr)
     {
-        maxPriority = curr->getItem();
+        maxPriority = dynamic_cast<ListItem *>(curr->getItem());
 
         if (top->getNext() == nullptr)
         {
@@ -75,7 +75,7 @@ string PriorityQueue::print()
     Node *curr = top;
     while (curr != nullptr)
     {
-        //output += to_string(dynamic_cast<Event *>(curr->getItem())->getTime());
+        output += to_string(dynamic_cast<Event *>(curr->getItem())->getTime());
         output += " ";
         curr = curr->getNext();
     }

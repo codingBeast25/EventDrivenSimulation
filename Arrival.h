@@ -1,18 +1,19 @@
 #pragma once
 #include "Event.h"
 class Simulation;
+class Process;
 
 class Arrival : public Event
 {
-
+    /*
 private:
     int arrTime;
-    Queue *cQueue;
-    Queue *iQueue;
-
+    Process *currProcess;
+    Simulation *sim;
+*/
 public:
-    Arrival(int time, Queue *CPUQ, Queue *IOQ);
-
+    Arrival(int time, Process *pro, Simulation *simul);
+    void print();
     void handleEvent();
     int getTime();
 };
