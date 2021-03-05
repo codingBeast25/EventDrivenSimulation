@@ -41,6 +41,12 @@ int Process::getCPUBurst()
     }
 }
 
+void Process::setCPUBurst(int newBurst)
+{
+    Bursts *currBurst = dynamic_cast<Bursts *>(cpuQ->getFront());
+    currBurst->setBurst(newBurst);
+}
+
 int Process::compareTo(ListItem *other)
 {
     return -1;

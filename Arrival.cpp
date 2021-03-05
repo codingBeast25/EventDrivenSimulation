@@ -12,6 +12,7 @@ void Arrival::handleEvent()
 
     if (!getSim()->isCpuBusy())
     {
+
         StartCpu *cpuStart = new StartCpu(Event::getTime(), this->getProcess(), this->getSim());
 
         getSim()->addCpuBurstToEnd(this->getProcess()->getCPUBurst());
@@ -27,5 +28,12 @@ void Arrival::handleEvent()
 
 void Arrival::print()
 {
-    cout << 123 << endl;
+    if (!getSim()->isCpuBusy())
+    {
+        cout << "Time: " << this->getSim()->getCurrTime() << ": Process " << this->getProcess()->getId() << " arrives in system: CPU is free(Process begins execution)." << endl;
+    }
+    else
+    {
+        cout << "Time: " << this->getSim()->getCurrTime() << ": Process " << this->getProcess()->getId() << " arrives in system: CPU is busy(Process will be)." << endl;
+    }
 }

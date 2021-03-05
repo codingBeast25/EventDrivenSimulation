@@ -18,7 +18,7 @@ Simulation::Simulation()
     processIOQ = new Queue();
     processQueue = new Queue();
     timeQ = 0;
-    id = 0;
+    id = 1;
 }
 
 void Simulation::runSimulation(char *fileName)
@@ -36,6 +36,7 @@ void Simulation::runSimulation(char *fileName)
         while (!(eventList->isEmpty()))
         {
             Event *currEvent = dynamic_cast<Event *>(getEventList()->dequeue());
+            currEvent->print();
             this->setCurrTime(currEvent->getTime());
             currEvent->handleEvent();
         }
@@ -55,7 +56,6 @@ void Simulation::getNextProcess()
         istringstream iss(line);
         while (iss >> number)
         {
-            cout << "current number:" << number << endl;
             if (isItTime)
             {
                 isItTime = 0;
@@ -75,7 +75,6 @@ void Simulation::getNextProcess()
         }
         Process *newProcess = new Process(id++, arrivalTime, processCPUQ, processIOQ);
         Arrival *newArrival = new Arrival(arrivalTime, newProcess, this);
-
         this->addEvent(newArrival);
         this->addProcess(newProcess);
     }
@@ -95,7 +94,6 @@ void Simulation::addProcess(Process *newProcess)
     {
         this->processQueue->enqueue(newProcess);
     }
-    id++;
 }
 
 void Simulation::addProcessToEnd(Process *currProcess)

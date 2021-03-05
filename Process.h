@@ -18,6 +18,7 @@ public:
     int getId();
     Queue *getQueue(int which);
     int getCPUBurst();
+    void setCPUBurst(int newBurst);
     int getArrTime();
     int getExitTime();
     int getWaitTime();

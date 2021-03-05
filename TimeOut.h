@@ -3,11 +3,11 @@
 class Simulation;
 class Process;
 
-class StartCpu : public Event
+class TimeOut : public Event
 {
 
 public:
-    StartCpu(int time, Process *pro, Simulation *simul);
+    TimeOut(int time, Process *pro, Simulation *simul);
     void print();
     void handleEvent();
 };
