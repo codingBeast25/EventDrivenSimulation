@@ -12,8 +12,8 @@ CompleteIo::CompleteIo(int time, Process *currProcess, Simulation *siml) : Event
 
 void CompleteIo::handleEvent()
 {
-    Simulation *sim = sim;
-    Process *process = process;
+    Simulation *sim = this->getSim();
+    Process *process = this->getProcess();
     sim->removeIOTop();
     process->removeFromIO();
 
@@ -46,5 +46,5 @@ void CompleteIo::handleEvent()
 
 void CompleteIo::print()
 {
-    cout << "Time " << this->getTime() << ": Process " << this->getProcess()->getId() << " completes I/O burst of length " << this->getProcess()->getIOBurst()->getBurst() << endl;
+    cout << "Time\t" << this->getTime() << ":\tProcess\t" << this->getProcess()->getId() << " completes I/O burst of length " << this->getProcess()->getIOBurst()->getBurst() << endl;
 }

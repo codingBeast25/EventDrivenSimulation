@@ -10,4 +10,5 @@ public:
     TimeOut(int time, Process *pro, Simulation *simul);
     void print();
     void handleEvent();
+    int compareTo(ListItem *other);
 };

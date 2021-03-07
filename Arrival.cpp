@@ -1,11 +1,17 @@
 #include "Arrival.h"
-
 #include "Simulation.h"
 #include "StartCpu.h"
 #include "Process.h"
+#include "TimeOut.h"
 #include <iostream>
 using namespace std;
 Arrival::Arrival(int arriveT, Process *currProcess, Simulation *sim) : Event(arriveT, currProcess, sim) {}
+
+template <typename Base, typename T>
+inline bool instanceof (const T *)
+{
+    return is_base_of<Base, T>::value;
+}
 
 void Arrival::handleEvent()
 {
@@ -24,14 +30,32 @@ void Arrival::handleEvent()
     sim->getNextProcess();
 }
 
+int Arrival::compareTo(ListItem *other)
+{
+    Event *otherEvent = dynamic_cast<Event *>(other);
+    int boolean = 0;
+    if (TimeOut *temp = dynamic_cast<TimeOut *>(otherEvent))
+    {
+        if ((this->getTime()) <= (otherEvent->getTime()))
+        {
+            boolean = 1;
+        }
+    }
+    else
+    {
+        boolean = Event::compareTo(other);
+    }
+    return boolean;
+}
+
 void Arrival::print()
 {
     if (!getSim()->isCpuBusy())
     {
-        cout << "Time: " << this->getTime() << ": Process " << this->getProcess()->getId() << " arrives in system: CPU is free(Process begins execution)." << endl;
+        cout << "Time\t" << this->getTime() << ":\tProcess\t" << this->getProcess()->getId() << " arrives in system: CPU is free(Process begins execution)." << endl;
     }
     else
     {
-        cout << "Time: " << this->getTime() << ": Process " << this->getProcess()->getId() << " arrives in system: CPU is busy(Process will be queued)." << endl;
+        cout << "Time\t" << this->getTime() << ":\tProcess\t" << this->getProcess()->getId() << " arrives in system: CPU is busy(Process will be queued)." << endl;
     }
 }

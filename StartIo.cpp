@@ -17,5 +17,5 @@ void StartIo::handleEvent()
 
 void StartIo::print()
 {
-    cout << "Time " << this->getTime() << ": Process " << this->getProcess()->getId() << " begins I/O burst of length " << this->getProcess()->getIOBurst()->getBurst() << endl;
+    cout << "Time\t" << this->getTime() << ":\tProcess\t" << this->getProcess()->getId() << " begins I/O burst of length " << this->getProcess()->getIOBurst()->getBurst() << endl;
 }

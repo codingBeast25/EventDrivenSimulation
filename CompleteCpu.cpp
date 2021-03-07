@@ -26,8 +26,6 @@ void CompleteCpu::handleEvent()
         if (sim->isIoBusy())
         {
             sim->addIoBurst(process);
-            //StartIo *newEvent = new StartIo(this->getTime(), this->getSim()->getIoTop(), this->getSim());
-            //this->getSim()->addEvent(newEvent);
         }
         else
         {
@@ -46,5 +44,5 @@ void CompleteCpu::handleEvent()
 
 void CompleteCpu::print()
 {
-    cout << "Time: " << this->getTime() << ": Process " << this->getProcess()->getId() << " completes CPU burst." << endl;
+    cout << "Time\t" << this->getTime() << ":\tProcess\t" << this->getProcess()->getId() << " completes CPU burst." << endl;
 }

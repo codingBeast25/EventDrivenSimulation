@@ -21,8 +21,8 @@ public:
     Bursts *getIOBurst();
     bool noMoreBursts();
     void setCPUBurst(int newBurst);
-    void removeFromIO();
-    void removeFromCPU();
+    Bursts *removeFromIO();
+    Bursts *removeFromCPU();
     int getArrTime();
     int getExitTime();
     int getWaitTime();

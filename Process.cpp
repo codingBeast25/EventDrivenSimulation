@@ -28,45 +28,28 @@ bool Process::noMoreBursts()
 
 Bursts *Process::getCPUBurst()
 {
-    Bursts *retBurst = dynamic_cast<Bursts *>(cpuQ->getFront());
-    if (retBurst != nullptr)
-    {
-        return retBurst;
-    }
-    else
-    {
-        return nullptr;
-    }
+    return dynamic_cast<Bursts *>(cpuQ->getFront());
 }
 
 Bursts *Process::getIOBurst()
 {
-    Bursts *retBurst = dynamic_cast<Bursts *>(ioQ->getFront());
-    if (retBurst != nullptr)
-    {
-        return retBurst;
-    }
-    else
-    {
-        return nullptr;
-    }
+    return dynamic_cast<Bursts *>(ioQ->getFront());
 }
 
 void Process::setCPUBurst(int newBurst)
 {
-    Bursts *newBursts = dynamic_cast<Bursts *>(cpuQ->getFront());
-    newBursts->setBurst(newBurst);
+    dynamic_cast<Bursts *>(cpuQ->getFront())->setBurst(newBurst);
     cpuQ->enqueue(cpuQ->dequeue());
 }
 
-void Process::removeFromCPU()
+Bursts *Process::removeFromCPU()
 {
-    this->cpuQ->dequeue();
+    return dynamic_cast<Bursts *>(this->cpuQ->dequeue());
 }
 
-void Process::removeFromIO()
+Bursts *Process::removeFromIO()
 {
-    this->ioQ->dequeue();
+    return dynamic_cast<Bursts *>(this->ioQ->dequeue());
 }
 
 int Process::getArrTime()

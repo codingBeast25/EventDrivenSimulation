@@ -8,8 +8,8 @@ Exit::Exit(int time, Process *currProcess, Simulation *siml) : Event(time, currP
 
 void Exit::handleEvent()
 {
-    Simulation *sim = sim;
-    Process *process = process;
+    Simulation *sim = this->getSim();
+    Process *process = this->getProcess();
     sim->addToTempQueue(process);
 
     process->setExitTime(this->getTime());
@@ -18,5 +18,5 @@ void Exit::handleEvent()
 
 void Exit::print()
 {
-    cout << "Time " << this->getTime() << ":Process " << this->getProcess()->getId() << " completes all its CPU and I/O burst. It exits Simulation." << endl;
+    cout << "Time\t" << this->getTime() << ":\tProcess\t" << this->getProcess()->getId() << " completes all its CPU and I/O burst. It exits Simulation." << endl;
 }

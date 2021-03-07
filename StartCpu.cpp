@@ -22,7 +22,7 @@ void StartCpu::handleEvent()
     }
     else
     {
-        process->setCPUBurst(burst - sim->getTimeQ());
+
         int timeOutT = sim->getCurrTime() + sim->getTimeQ();
         TimeOut *newEvent = new TimeOut(timeOutT, process, sim);
         sim->addEvent(newEvent);
@@ -31,12 +31,13 @@ void StartCpu::handleEvent()
 
 void StartCpu::print()
 {
+
     if (this->getProcess()->getCPUBurst()->getBurst() - getSim()->getTimeQ() <= 0)
     {
-        cout << "Time: " << this->getTime() << ": Process " << this->getProcess()->getId() << " begins CPU burst(will complete all " << this->getProcess()->getCPUBurst()->getBurst() << " remaining units)." << endl;
+        cout << "Time\t" << this->getTime() << ":\tProcess\t" << this->getProcess()->getId() << " begins CPU burst(will complete all " << this->getProcess()->getCPUBurst()->getBurst() << " remaining units)." << endl;
     }
     else
     {
-        cout << "Time: " << this->getTime() << ": Process " << this->getProcess()->getId() << " begins CPU burst(will time out; needs " << this->getProcess()->getCPUBurst()->getBurst() << " units total)." << endl;
+        cout << "Time\t" << this->getTime() << ":\tProcess\t" << this->getProcess()->getId() << " begins CPU burst(will time out; needs " << this->getProcess()->getCPUBurst()->getBurst() << " units total)." << endl;
     }
 }

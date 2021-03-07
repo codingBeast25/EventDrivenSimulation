@@ -48,9 +48,10 @@ void Simulation::runSimulation(char *fileName)
 
 void Simulation::getNextProcess()
 {
-
     if (getline(inFile, line))
     {
+        processCPUQ = new Queue;
+        processIOQ = new Queue;
         int arrivalTime;
         int number;
         Bursts *currBurst;
@@ -106,7 +107,7 @@ Process *Simulation::getCurrProcess()
 
 bool Simulation::isCpuBusy()
 {
-    if (CPUQ->getFront() == nullptr)
+    if (CPUQ->isEmpty())
     {
         return false;
     }
@@ -118,7 +119,7 @@ bool Simulation::isCpuBusy()
 
 bool Simulation::isIoBusy()
 {
-    if (IOQ->getFront() == nullptr)
+    if (IOQ->isEmpty())
     {
         return false;
     }
@@ -190,9 +191,13 @@ int Simulation::getCurrTime()
 
 void Simulation::summary()
 {
-    while (!totalProcessQueue->isEmpty())
+    cout << "Process\tArrival\tExit\tWait" << endl;
+    cout << "      #\t   Time\tTime\tTime" << endl;
+    cout << "------------------------------------" << endl;
+    while (!currProcessQueue->isEmpty())
     {
-        Process *currProcess = dynamic_cast<Process *>(totalProcessQueue->dequeue());
-        cout << currProcess->getId() << "\t" << currProcess->getArrTime() << "\t" << currProcess->getExitTime() << "\t" << currProcess->getWaitTime() << endl;
+
+        Process *currProcess = dynamic_cast<Process *>(currProcessQueue->dequeue());
+        cout << "      " << currProcess->getId() << "\t     " << currProcess->getArrTime() << "\t  " << currProcess->getExitTime() << "\t  " << currProcess->getWaitTime() << endl;
     }
 }
