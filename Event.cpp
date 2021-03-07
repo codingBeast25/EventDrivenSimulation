@@ -25,16 +25,8 @@ int Event::compareTo(ListItem *other)
 			{
 				boolean = 1;
 			}
-			else
-			{
-				boolean = 0;
-			}
 		}
-		else
-		{
-			boolean = 0;
 		}
-	}
 	return boolean;
 }
 
