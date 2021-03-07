@@ -22,7 +22,8 @@ private:
 	Queue *processIOQ;
 	PriorityQueue *eventList;
 	int id;
-	Queue *processQueue;
+	Queue *currProcessQueue;
+	Queue *totalProcessQueue;
 	// you will need to add fields
 	// including: Queues for CPU and IO, and priority queues for Events
 public:
@@ -36,11 +37,20 @@ public:
 
 	void addEvent(Event *currEvent);
 	void addProcess(Process *currProcess);
-	void addProcessToEnd(Process *currProcess);
+	void addProcessToEnd();
 	Process *getCurrProcess();
 	bool isCpuBusy();
-	void addCpuBurstToEnd(int curr);
-	PriorityQueue *getEventList();
+	bool isIoBusy();
+	Process *removeIOTop();
+	Process *removeCPUTop();
+	void addCpuBurst(Process *processTOadd);
+	void addIoBurst(Process *processToAdd);
+	void addCpuBurstToEnd();
+	void setCurrCpuBurst(int newB);
+	Process *getIoTop();
+	Process *getCpuTop();
+	void addToTempQueue(Process *currProcess);
+
 	void setCurrTime(int time);
 	int getCurrTime();
 	int getTimeQ();

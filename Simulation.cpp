@@ -16,7 +16,8 @@ Simulation::Simulation()
     IOQ = new Queue();
     processCPUQ = new Queue();
     processIOQ = new Queue();
-    processQueue = new Queue();
+    currProcessQueue = new Queue();
+    totalProcessQueue = new Queue();
     timeQ = 0;
     id = 1;
 }
@@ -35,7 +36,7 @@ void Simulation::runSimulation(char *fileName)
 
         while (!(eventList->isEmpty()))
         {
-            Event *currEvent = dynamic_cast<Event *>(getEventList()->dequeue());
+            Event *currEvent = dynamic_cast<Event *>(eventList->dequeue());
             currEvent->print();
             this->setCurrTime(currEvent->getTime());
             currEvent->handleEvent();
@@ -47,6 +48,7 @@ void Simulation::runSimulation(char *fileName)
 
 void Simulation::getNextProcess()
 {
+
     if (getline(inFile, line))
     {
         int arrivalTime;
@@ -65,6 +67,7 @@ void Simulation::getNextProcess()
             if (number >= 0)
             {
                 currBurst = new Bursts(number);
+
                 processCPUQ->enqueue(currBurst);
             }
             else if (number < 0)
@@ -92,18 +95,13 @@ void Simulation::addProcess(Process *newProcess)
 {
     if (newProcess != nullptr)
     {
-        this->processQueue->enqueue(newProcess);
+        this->currProcessQueue->enqueue(newProcess);
     }
-}
-
-void Simulation::addProcessToEnd(Process *currProcess)
-{
-    this->processQueue->enqueue(processQueue->dequeue());
 }
 
 Process *Simulation::getCurrProcess()
 {
-    return dynamic_cast<Process *>(this->processQueue->getFront());
+    return dynamic_cast<Process *>(this->currProcessQueue->getFront());
 }
 
 bool Simulation::isCpuBusy()
@@ -118,15 +116,61 @@ bool Simulation::isCpuBusy()
     }
 }
 
-void Simulation::addCpuBurstToEnd(int curr)
+bool Simulation::isIoBusy()
 {
-    Bursts *curCpuBurst = new Bursts(curr);
-    this->CPUQ->enqueue(curCpuBurst);
+    if (IOQ->getFront() == nullptr)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
-PriorityQueue *Simulation::getEventList()
+void Simulation::addCpuBurst(Process *processToAdd)
 {
-    return this->eventList;
+    this->CPUQ->enqueue(processToAdd);
+}
+
+void Simulation ::addIoBurst(Process *processToAdd)
+{
+    this->IOQ->enqueue(processToAdd);
+}
+
+void Simulation::addCpuBurstToEnd()
+{
+    this->CPUQ->enqueue(CPUQ->dequeue());
+}
+
+void Simulation::setCurrCpuBurst(int newVal)
+{
+    dynamic_cast<Process *>(this->CPUQ->getFront())->setCPUBurst(newVal);
+}
+
+Process *Simulation::getCpuTop()
+{
+    return dynamic_cast<Process *>(this->CPUQ->getFront());
+}
+
+Process *Simulation::getIoTop()
+{
+    return dynamic_cast<Process *>(this->IOQ->getFront());
+}
+
+Process *Simulation::removeCPUTop()
+{
+    return dynamic_cast<Process *>(this->CPUQ->dequeue());
+}
+
+Process *Simulation::removeIOTop()
+{
+    return dynamic_cast<Process *>(this->IOQ->dequeue());
+}
+
+void Simulation::addToTempQueue(Process *currProcess)
+{
+    this->totalProcessQueue->enqueue(currProcess);
 }
 
 void Simulation::setCurrTime(int time)
@@ -142,4 +186,13 @@ int Simulation::getTimeQ()
 int Simulation::getCurrTime()
 {
     return currTime;
+}
+
+void Simulation::summary()
+{
+    while (!totalProcessQueue->isEmpty())
+    {
+        Process *currProcess = dynamic_cast<Process *>(totalProcessQueue->dequeue());
+        cout << currProcess->getId() << "\t" << currProcess->getArrTime() << "\t" << currProcess->getExitTime() << "\t" << currProcess->getWaitTime() << endl;
+    }
 }

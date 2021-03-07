@@ -2,6 +2,7 @@
 
 #include "ListItem.h"
 #include "Queue.h"
+class Bursts;
 
 class Process : public ListItem
 {
@@ -16,12 +17,17 @@ private:
 public:
     Process(int id, int arrivalTime, Queue *cpuQ, Queue *ioQ);
     int getId();
-    Queue *getQueue(int which);
-    int getCPUBurst();
+    Bursts *getCPUBurst();
+    Bursts *getIOBurst();
+    bool noMoreBursts();
     void setCPUBurst(int newBurst);
+    void removeFromIO();
+    void removeFromCPU();
     int getArrTime();
     int getExitTime();
     int getWaitTime();
+    void setExitTime(int exitTime);
+    void setWaitTime();
     int compareTo(ListItem *other);
     void print();
     ~Process();

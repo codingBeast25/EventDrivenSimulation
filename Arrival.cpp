@@ -9,31 +9,29 @@ Arrival::Arrival(int arriveT, Process *currProcess, Simulation *sim) : Event(arr
 
 void Arrival::handleEvent()
 {
-
-    if (!getSim()->isCpuBusy())
+    Simulation *sim = this->getSim();
+    Process *process = this->getProcess();
+    if (sim->isCpuBusy())
     {
-
-        StartCpu *cpuStart = new StartCpu(Event::getTime(), this->getProcess(), this->getSim());
-
-        getSim()->addCpuBurstToEnd(this->getProcess()->getCPUBurst());
-        getSim()->addEvent(cpuStart);
+        sim->addCpuBurst(process);
     }
     else
     {
-        getSim()->addProcessToEnd(this->getProcess());
-        getSim()->addCpuBurstToEnd(this->getProcess()->getCPUBurst());
+        sim->addCpuBurst(process);
+        StartCpu *newEvent = new StartCpu(this->getTime(), process, sim);
+        sim->addEvent(newEvent);
     }
-    this->getSim()->getNextProcess();
+    sim->getNextProcess();
 }
 
 void Arrival::print()
 {
     if (!getSim()->isCpuBusy())
     {
-        cout << "Time: " << this->getSim()->getCurrTime() << ": Process " << this->getProcess()->getId() << " arrives in system: CPU is free(Process begins execution)." << endl;
+        cout << "Time: " << this->getTime() << ": Process " << this->getProcess()->getId() << " arrives in system: CPU is free(Process begins execution)." << endl;
     }
     else
     {
-        cout << "Time: " << this->getSim()->getCurrTime() << ": Process " << this->getProcess()->getId() << " arrives in system: CPU is busy(Process will be)." << endl;
+        cout << "Time: " << this->getTime() << ": Process " << this->getProcess()->getId() << " arrives in system: CPU is busy(Process will be queued)." << endl;
     }
 }

@@ -14,7 +14,7 @@ int Event::compareTo(ListItem *other)
 	Event *otherEvent = dynamic_cast<Event *>(other);
 	if (otherEvent != nullptr)
 	{
-		if ((this->getTime()) <= (otherEvent->getTime()))
+		if ((this->getTime()) < (otherEvent->getTime()))
 		{
 			boolean = 1;
 		}

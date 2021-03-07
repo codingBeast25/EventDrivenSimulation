@@ -16,38 +16,95 @@ int Process::getId()
     return id;
 }
 
-Queue *Process::getQueue(int which)
+bool Process::noMoreBursts()
 {
-    if (which == 0)
+    if (this->getIOBurst() == nullptr && this->getCPUBurst() == nullptr)
     {
-        return cpuQ;
+        return true;
     }
     else
-    {
-        return ioQ;
-    }
+        return false;
 }
 
-int Process::getCPUBurst()
+Bursts *Process::getCPUBurst()
 {
     Bursts *retBurst = dynamic_cast<Bursts *>(cpuQ->getFront());
     if (retBurst != nullptr)
     {
-        return retBurst->getBurst();
+        return retBurst;
     }
     else
     {
-        return 0;
+        return nullptr;
+    }
+}
+
+Bursts *Process::getIOBurst()
+{
+    Bursts *retBurst = dynamic_cast<Bursts *>(ioQ->getFront());
+    if (retBurst != nullptr)
+    {
+        return retBurst;
+    }
+    else
+    {
+        return nullptr;
     }
 }
 
 void Process::setCPUBurst(int newBurst)
 {
-    Bursts *currBurst = dynamic_cast<Bursts *>(cpuQ->getFront());
-    currBurst->setBurst(newBurst);
+    Bursts *newBursts = dynamic_cast<Bursts *>(cpuQ->getFront());
+    newBursts->setBurst(newBurst);
+    cpuQ->enqueue(cpuQ->dequeue());
+}
+
+void Process::removeFromCPU()
+{
+    this->cpuQ->dequeue();
+}
+
+void Process::removeFromIO()
+{
+    this->ioQ->dequeue();
+}
+
+int Process::getArrTime()
+{
+    return arrivalTime;
+}
+
+int Process::getExitTime()
+{
+    return exitTime;
+}
+
+int Process::getWaitTime()
+{
+    return waitTime;
+}
+
+void Process::setExitTime(int exit)
+{
+    exitTime = exit;
+}
+
+void Process::setWaitTime()
+{
+    waitTime = exitTime - arrivalTime;
 }
 
 int Process::compareTo(ListItem *other)
 {
-    return -1;
+    int boolean = 0;
+    Process *otherProcess = dynamic_cast<Process *>(other);
+    if (this->getId() > otherProcess->getId())
+    {
+        boolean = 1;
+    }
+    else if (this->getId() < otherProcess->getId())
+    {
+        boolean = -1;
+    }
+    return boolean;
 }

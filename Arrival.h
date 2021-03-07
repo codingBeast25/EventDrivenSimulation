@@ -15,5 +15,4 @@ public:
     Arrival(int time, Process *pro, Simulation *simul);
     void print();
     void handleEvent();
-    int getTime();
 };
