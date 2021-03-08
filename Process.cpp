@@ -11,6 +11,16 @@ Process::Process(int id, int arrivalTime, Queue *cpuQ, Queue *ioQ)
     this->exitTime = 0;
 }
 
+int Process::getTotalBurst()
+{
+    return totalBurst;
+}
+
+void Process::setTotalBurst(int newTotal)
+{
+    totalBurst = newTotal;
+}
+
 int Process::getId()
 {
     return id;
@@ -74,7 +84,7 @@ void Process::setExitTime(int exit)
 
 void Process::setWaitTime()
 {
-    waitTime = exitTime - arrivalTime;
+    waitTime = exitTime - arrivalTime - getTotalBurst();
 }
 
 int Process::compareTo(ListItem *other)

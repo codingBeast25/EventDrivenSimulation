@@ -5,13 +5,8 @@
 #include "TimeOut.h"
 #include <iostream>
 using namespace std;
-Arrival::Arrival(int arriveT, Process *currProcess, Simulation *sim) : Event(arriveT, currProcess, sim) {}
 
-template <typename Base, typename T>
-inline bool instanceof (const T *)
-{
-    return is_base_of<Base, T>::value;
-}
+Arrival::Arrival(int arriveT, Process *currProcess, Simulation *sim) : Event(arriveT, currProcess, sim) {}
 
 void Arrival::handleEvent()
 {

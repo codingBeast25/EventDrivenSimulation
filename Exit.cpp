@@ -10,8 +10,6 @@ void Exit::handleEvent()
 {
     Simulation *sim = this->getSim();
     Process *process = this->getProcess();
-    sim->addToTempQueue(process);
-
     process->setExitTime(this->getTime());
     process->setWaitTime();
 }

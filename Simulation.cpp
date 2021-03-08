@@ -52,6 +52,7 @@ void Simulation::getNextProcess()
     {
         processCPUQ = new Queue;
         processIOQ = new Queue;
+        int totalBurst = 0;
         int arrivalTime;
         int number;
         Bursts *currBurst;
@@ -68,16 +69,19 @@ void Simulation::getNextProcess()
             if (number >= 0)
             {
                 currBurst = new Bursts(number);
-
+                totalBurst += number;
                 processCPUQ->enqueue(currBurst);
             }
             else if (number < 0)
             {
-                currBurst = new Bursts(0 - number);
+                number = -number;
+                currBurst = new Bursts(number);
+                totalBurst += number;
                 processIOQ->enqueue(currBurst);
             }
         }
         Process *newProcess = new Process(id++, arrivalTime, processCPUQ, processIOQ);
+        newProcess->setTotalBurst(totalBurst);
         Arrival *newArrival = new Arrival(arrivalTime, newProcess, this);
         this->addEvent(newArrival);
         this->addProcess(newProcess);

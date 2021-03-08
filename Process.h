@@ -13,9 +13,12 @@ private:
     int waitTime;
     Queue *cpuQ;
     Queue *ioQ;
+    int totalBurst;
 
 public:
     Process(int id, int arrivalTime, Queue *cpuQ, Queue *ioQ);
+    void setTotalBurst(int total);
+    int getTotalBurst();
     int getId();
     Bursts *getCPUBurst();
     Bursts *getIOBurst();

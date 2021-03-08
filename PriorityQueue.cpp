@@ -21,20 +21,15 @@ void PriorityQueue::enqueue(Event *item)
     }
     else
     {
-        prev = top;
-        curr = top->getNext();
-        while (prev->getNext() != nullptr)
+        curr = top;
+        while (curr->getNext() != nullptr && (item->compareTo(dynamic_cast<ListItem *>(curr->getNext()->getItem())) == 0))
         {
-            if (item->compareTo(dynamic_cast<ListItem *>(curr->getItem())) == 1)
-            {
-                prev->setNext(temp);
-                temp->setNext(curr);
-            }
-            prev = curr;
+
             curr = curr->getNext();
         }
-        prev->setNext(temp);
-        temp->setNext(curr);
+
+        temp->setNext(curr->getNext());
+        curr->setNext(temp);
     }
     size++;
 }
