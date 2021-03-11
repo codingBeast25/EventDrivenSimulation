@@ -1,9 +1,12 @@
-
+/*
+*Name: Kabir Bhakta		Student Number: 7900098
+*Purpose: priority queue defination.
+*/
 
 #pragma once
 
-#include "Node.h"
-#include "ListItem.h"
+class Node;
+class ListItem;
 class Event;
 
 using namespace std;
@@ -28,9 +31,6 @@ public:
 
     //get the top item
     ListItem *getTop();
-
-    //print the queue
-    string print();
 
     //get the queue size
     int getSize();

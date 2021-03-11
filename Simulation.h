@@ -1,3 +1,7 @@
+/*
+Name: Kabir Bhakta 		Student Number : 7900098
+Purpose: Implementation of Simulation.cpp
+*/
 #pragma once
 
 #include <fstream>
@@ -6,7 +10,6 @@ class PriorityQueue;
 class Queue;
 class Event;
 class Process;
-class Bursts;
 using namespace std;
 
 class Simulation
@@ -14,51 +17,45 @@ class Simulation
 private:
 	ifstream inFile;
 	string line;
-	int timeQ;
-	int currTime;
-	Queue *CPUQ;
-	Queue *IOQ;
-	Queue *processCPUQ;
-	Queue *processIOQ;
-	PriorityQueue *eventList;
-	int id;
-	Queue *currProcessQueue;
-	Queue *totalProcessQueue;
-	// you will need to add fields
-	// including: Queues for CPU and IO, and priority queues for Events
+	int timeQ;				  //time quantam
+	int currTime;			  //curr time of simulation
+	int id;					  //current process's id
+	Queue *CPUQ;			  //CPUQ for keeping track of process working in CPU
+	Queue *IOQ;				  //IOQ for keeping track of process working in IO
+	PriorityQueue *eventList; //Keep track of current and future events
+	Queue *currProcessQueue;  //keep track of process that entered simulatiuon
+
 public:
-	Simulation();
+	Simulation(); //constructor
 
 	// runSimulation -- start the simulation with the given filename.
 	// Called by main.
 	void runSimulation(char *fileName);
 
-	void getNextProcess();
+	void getNextProcess(); //read the next process from the file
 
-	void addEvent(Event *currEvent);
-	void addProcess(Process *currProcess);
-	void addProcessToEnd();
-	Process *getCurrProcess();
-	bool isCpuBusy();
-	bool isIoBusy();
-	Process *removeIOTop();
-	Process *removeCPUTop();
-	void addCpuBurst(Process *processTOadd);
-	void addIoBurst(Process *processToAdd);
-	void addCpuBurstToEnd();
-	void setCurrCpuBurst(int newB);
-	Process *getIoTop();
-	Process *getCpuTop();
-	void addToTempQueue(Process *currProcess);
+	void addEvent(Event *currEvent); //add the event to event list
 
-	void setCurrTime(int time);
-	int getCurrTime();
+	void addProcess(Process *currProcess); //add the process to currProcessQueue
+
+	bool isCpuBusy(); //checks if CPU is busy or not
+	bool isIoBusy();  //checks if IO is busy or not
+
+	Process *removeIOTop();	 //get CPUQ's first process
+	Process *removeCPUTop(); //get IOQ's first process
+
+	void addtoCpu(Process *processTOadd); //add the process to CPUQ
+	void addtoIo(Process *processToAdd);  //add the process to IOQ
+
+	Process *getIoTop();  //get curr Process executing on CPU
+	Process *getCpuTop(); //get curr Process executing on IOQ
+
+	void setCurrTime(int time); //set current time of the simulation
+	int getCurrTime();			//get the current simualtion time
 	int getTimeQ();
 
 	// summary -- print a summary of all the processes, as shown in the
 	// assignment.  Called by main.
 	void summary();
-
-	// you may need to add more methods
 
 }; // class Simulation

@@ -1,3 +1,7 @@
+/*
+*Name: Kabir Bhakta		Student Number: 7900098
+*Purpose: Arrvial Event implementation. When a process arrives in system.
+*/
 #include "Arrival.h"
 #include "Simulation.h"
 #include "StartCpu.h"
@@ -6,41 +10,25 @@
 #include <iostream>
 using namespace std;
 
+//constructor
 Arrival::Arrival(int arriveT, Process *currProcess, Simulation *sim) : Event(arriveT, currProcess, sim) {}
 
+//Handle event will do the main processing  and create another event accordingly
 void Arrival::handleEvent()
 {
     Simulation *sim = this->getSim();
     Process *process = this->getProcess();
-    if (sim->isCpuBusy())
+    if (sim->isCpuBusy()) //check if cpu is currently proccessing anything or not
     {
-        sim->addCpuBurst(process);
+        sim->addtoCpu(process); //if it is proccessing then add to end of the queue
     }
     else
     {
-        sim->addCpuBurst(process);
+        sim->addtoCpu(process); //if cpu is free then add to queue and start cpu event should be added to the event list
         StartCpu *newEvent = new StartCpu(this->getTime(), process, sim);
         sim->addEvent(newEvent);
     }
-    sim->getNextProcess();
-}
-
-int Arrival::compareTo(ListItem *other)
-{
-    Event *otherEvent = dynamic_cast<Event *>(other);
-    int boolean = 0;
-    if (TimeOut *temp = dynamic_cast<TimeOut *>(otherEvent))
-    {
-        if ((this->getTime()) <= (otherEvent->getTime()))
-        {
-            boolean = 1;
-        }
-    }
-    else
-    {
-        boolean = Event::compareTo(other);
-    }
-    return boolean;
+    sim->getNextProcess(); //read new arriavl from the file
 }
 
 void Arrival::print()

@@ -1,13 +1,19 @@
+/*
+*Name: Kabir Bhakta		Student Number: 7900098
+*Purpose: Queue defination
+*/
 #pragma once
 
 class Node;
 class ListItem;
 
-class Queue {
+class Queue
+{
 private:
 	Node *front;
 	Node *back;
 	int size;
+
 public:
 	Queue();
 	int getSize();

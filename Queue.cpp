@@ -1,51 +1,66 @@
+/*
+*Name: Kabir Bhakta		Student Number: 7900098
+*Purpose: Queue implementation.
+*/
 #include "Queue.h"
 #include "ListItem.h"
 #include "Node.h"
 
 /**** Queue implementation */
 Queue::Queue() : front(nullptr), back(nullptr), size(0) {}
-int Queue::getSize(){ 
-	return size; 
+int Queue::getSize()
+{
+	return size;
 }
-bool Queue::isEmpty(){ 
-	return size == 0; 
+bool Queue::isEmpty()
+{
+	return size == 0;
 }
 
-void Queue::enqueue(ListItem *item){
+void Queue::enqueue(ListItem *item)
+{
 	// special case: adding to empty queue
-	if(front == nullptr){
+	if (front == nullptr)
+	{
 		front = new Node(item, nullptr);
 		back = front;
-	} else {
+	}
+	else
+	{
 		back->setNext(new Node(item, nullptr));
 		back = back->getNext();
 	}
 	size++;
-}// enqueue
+} // enqueue
 
-ListItem *Queue::dequeue(){
+ListItem *Queue::dequeue()
+{
 	ListItem *theItem = nullptr;
 	Node *theNode = front;
-	if(front != nullptr){
+	if (front != nullptr)
+	{
 		theItem = front->getItem();
 		// special case: removing last item
-		if(front == back){
+		if (front == back)
+		{
 			front = back = nullptr;
-		} else {
+		}
+		else
+		{
 			front = front->getNext();
 		}
 		size--;
-		delete(theNode);
+		delete (theNode);
 	}
 	return theItem;
-}// dequeue
+} // dequeue
 
-
-ListItem *Queue::getFront(){
+ListItem *Queue::getFront()
+{
 	ListItem *theItem = nullptr;
-	if(front != nullptr){
+	if (front != nullptr)
+	{
 		theItem = front->getItem();
 	}
 	return theItem;
-}// getFront
-
+} // getFront
