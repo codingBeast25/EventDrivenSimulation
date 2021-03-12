@@ -9,7 +9,7 @@ class ListItem;
 
 class ParentQueue
 {
-private:
+protected:
     Node *front;
     Node *back;
     int size;

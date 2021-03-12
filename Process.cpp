@@ -50,19 +50,19 @@ bool Process::noMoreBursts()
 //returns the top burst from the cpu bursts
 Bursts *Process::getCPUBurst()
 {
-    return dynamic_cast<Bursts *>(cpuQ->getFront());
+    return dynamic_cast<Bursts *>(cpuQ->getTop());
 }
 
 //returns the top burst from the io bursts
 Bursts *Process::getIOBurst()
 {
-    return dynamic_cast<Bursts *>(ioQ->getFront());
+    return dynamic_cast<Bursts *>(ioQ->getTop());
 }
 
 //sets the current cpu burst a new value
 void Process::setCPUBurst(int newBurst)
 {
-    dynamic_cast<Bursts *>(cpuQ->getFront())->setBurst(newBurst);
+    dynamic_cast<Bursts *>(cpuQ->getTop())->setBurst(newBurst);
 }
 
 //removes the top burst of the CPu burst

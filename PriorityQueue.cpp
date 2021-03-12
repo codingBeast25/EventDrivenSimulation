@@ -11,24 +11,24 @@
 #include "Event.h"
 
 //constructor
-PriorityQueue::PriorityQueue() : top(nullptr), size(0) {}
+PriorityQueue::PriorityQueue() : ParentQueue() {}
 
 //Adds element to priority queue according to its priority
-void PriorityQueue::enqueue(Event *item)
+void PriorityQueue::enqueue(ListItem *item)
 {
     Node *temp = new Node(item, nullptr);
     Node *curr; //current node pointer
     Node *prev;
 
     //if item to be inserted on first location
-    if (top == nullptr || item->compareTo(top->getItem()) == 1)
+    if (front == nullptr || item->compareTo(front->getItem()) == 1)
     {
-        temp->setNext(top);
-        top = temp;
+        temp->setNext(front);
+        front = temp;
     }
     else
     {
-        curr = top;
+        curr = front;
         //else find a location where it will go
         while (curr->getNext() != nullptr && (item->compareTo(curr->getNext()->getItem()) == 0))
         {
@@ -41,44 +41,4 @@ void PriorityQueue::enqueue(Event *item)
     size++;
 }
 
-//remove the top of queue and return the item
-ListItem *PriorityQueue::dequeue()
-{
-    ListItem *maxPriority = nullptr;
-    Node *curr = top;
-    if (curr != nullptr)
-    {
-        maxPriority = curr->getItem();
-        //if queue is empty
-        if (top->getNext() == nullptr)
-        {
-            top = nullptr;
-        }
-        else
-        {
-            top = top->getNext();
-        }
-        delete (curr);
-        size--;
-    }
-    return maxPriority;
-}
-
-//checks if queue is empty or not
-bool PriorityQueue::isEmpty()
-{
-    return size == 0;
-}
-
-//returns the top item
-ListItem *PriorityQueue::getTop()
-{
-    return (top->getItem());
-}
-
-//returns size
-int PriorityQueue::getSize()
-{
-    return this->size;
-}
 PriorityQueue::~PriorityQueue() {}

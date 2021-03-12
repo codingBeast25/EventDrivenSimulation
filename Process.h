@@ -3,7 +3,7 @@ Name: Kabir Bhakta 		Student Number : 7900098
 Purpose: Implementation of Process.cpp
 */
 #pragma once
-
+#include "ParentQueue.h"
 #include "ListItem.h"
 class Queue;
 class Bursts;

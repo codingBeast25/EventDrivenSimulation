@@ -166,13 +166,13 @@ void Simulation ::addtoIo(Process *processToAdd)
 //returns the current process executing on CPU
 Process *Simulation::getCpuTop()
 {
-    return dynamic_cast<Process *>(this->CPUQ->getFront());
+    return dynamic_cast<Process *>(this->CPUQ->getTop());
 }
 
 //returns the current process executing on IO
 Process *Simulation::getIoTop()
 {
-    return dynamic_cast<Process *>(this->IOQ->getFront());
+    return dynamic_cast<Process *>(this->IOQ->getTop());
 }
 
 //removes the current process from CPUQ

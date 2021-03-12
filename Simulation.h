@@ -6,6 +6,7 @@ Purpose: Implementation of Simulation.cpp
 
 #include <fstream>
 #include <string>
+#include "ParentQueue.h"
 class PriorityQueue;
 class Queue;
 class Event;
