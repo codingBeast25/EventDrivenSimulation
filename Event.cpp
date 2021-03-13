@@ -14,7 +14,7 @@ using namespace std;
 Event::Event(int theTime, Process *theProcess, Simulation *theSim)
 	: eventTime(theTime), process(theProcess), sim(theSim) {}
 
-//compare current event with other event
+//compare current event with other event. If both the events are same then 0 is returned.
 int Event::compareTo(ListItem *other)
 {
 	int boolean = 0; //false

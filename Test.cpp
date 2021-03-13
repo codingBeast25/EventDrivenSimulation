@@ -52,7 +52,7 @@ TEST_CASE("->Testing getSize()")
     REQUIRE(list->getSize() == 1);
 
     //comparing the only item there in list
-    REQUIRE(list->getTop()->compareTo(newEvent) == 1);
+    REQUIRE(dynamic_cast<Event *>(list->getTop())->compareTo(newEvent) == 0);
 
     Event *e2 = new CompleteCpu(5, p2, newSim);
     list->enqueue(e2);
@@ -63,7 +63,7 @@ TEST_CASE("->Testing getSize()")
     REQUIRE(list->getSize() == 1);
 
     //removed start cpu event and now will compare completeCpu with start cpu
-    REQUIRE(list->getTop()->compareTo(newEvent) == 0);
+    REQUIRE(dynamic_cast<Event *>(list->getTop())->compareTo(newEvent) == 0);
     REQUIRE(list->getSize() == 1);
 }
 
@@ -83,19 +83,19 @@ TEST_CASE("->Testing Dequeue().")
     REQUIRE(list->getSize() == 4);
 
     //when we dequeue from list we should get e1 as it has highest priority in our priority queue
-    REQUIRE(dynamic_cast<Event *>(list->dequeue())->compareTo(e1) == 1);
+    REQUIRE(dynamic_cast<Event *>(list->dequeue())->compareTo(e1) == 0);
     REQUIRE(list->getSize() == 3);
 
     //now when we dequeue we should get e3 as it has current highest priority in our priority queue
-    REQUIRE(dynamic_cast<Event *>(list->dequeue())->compareTo(e3) == 1);
+    REQUIRE(dynamic_cast<Event *>(list->dequeue())->compareTo(e3) == 0);
     REQUIRE(list->getSize() == 2);
 
     //now when we dequeue we should get e2 as both e2 as well as e4 have same arriavl time but e2 was enqueued first
-    REQUIRE(dynamic_cast<Event *>(list->dequeue())->compareTo(e2) == 1);
+    REQUIRE(dynamic_cast<Event *>(list->dequeue())->compareTo(e2) == 0);
     REQUIRE(list->getSize() == 1);
 
     //now the only element left in the list e4
-    REQUIRE(dynamic_cast<Event *>(list->dequeue())->compareTo(e4) == 1);
+    REQUIRE(dynamic_cast<Event *>(list->dequeue())->compareTo(e4) == 0);
     REQUIRE(list->getSize() == 0);
 
     REQUIRE(list->isEmpty());
@@ -120,21 +120,21 @@ TEST_CASE("->Testing getTop().")
 
     REQUIRE(list->getSize() == 4);
     //current top of the list = e1
-    REQUIRE(dynamic_cast<Event *>(list->getTop())->compareTo(e1) == 1);
+    REQUIRE(dynamic_cast<Event *>(list->getTop())->compareTo(e1) == 0);
     list->dequeue();
 
     /*
         list : e3 -> e2 -> e4
              (top)
     */
-    REQUIRE(dynamic_cast<Event *>(list->getTop())->compareTo(e3) == 1);
+    REQUIRE(dynamic_cast<Event *>(list->getTop())->compareTo(e3) == 0);
     list->dequeue();
 
     /*
         list : e2 -> e4
              (top)
     */
-    REQUIRE(dynamic_cast<Event *>(list->getTop())->compareTo(e2) == 1);
+    REQUIRE(dynamic_cast<Event *>(list->getTop())->compareTo(e2) == 0);
 }
 
 TEST_CASE("->Testing Enqueue.")
@@ -156,8 +156,8 @@ TEST_CASE("->Testing Enqueue.")
     2. If two events are Arrival and TimeOut with same arrival time then Arrival event should be inserted first regardless of the process id
     Hence, our list should look like this : e1 -> e4 -> e3 -> e2
     */
-    REQUIRE(dynamic_cast<Event *>(list->dequeue())->compareTo(e1) == 1);
-    REQUIRE(dynamic_cast<Event *>(list->getTop())->compareTo(e4) == 1);
-    REQUIRE(dynamic_cast<Event *>(list->getTop())->compareTo(e3) == 1);
-    REQUIRE(dynamic_cast<Event *>(list->getTop())->compareTo(e2) == 1);
+    REQUIRE(dynamic_cast<Event *>(list->dequeue())->compareTo(e1) == 0);
+    REQUIRE(dynamic_cast<Event *>(list->dequeue())->compareTo(e4) == 0);
+    REQUIRE(dynamic_cast<Event *>(list->dequeue())->compareTo(e3) == 0);
+    REQUIRE(dynamic_cast<Event *>(list->dequeue())->compareTo(e2) == 0);
 }
