@@ -1,3 +1,4 @@
+Program to run on linux environment command line.
 1)Open the directory where the assignment is,
 
 2)Then type 'make' to compile all the files of the assignment.
