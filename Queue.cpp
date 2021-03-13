@@ -24,5 +24,3 @@ void Queue::enqueue(ListItem *item)
 	}
 	size++;
 } // enqueue
-
-

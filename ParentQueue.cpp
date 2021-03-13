@@ -41,10 +41,10 @@ ListItem *ParentQueue::dequeue()
 
 ListItem *ParentQueue::getTop()
 {
-   if(front != nullptr)
-   {
-	 return front->getItem();
-   }
+    if (front != nullptr)
+    {
+        return front->getItem();
+    }
 
-   return nullptr;
+    return nullptr;
 }

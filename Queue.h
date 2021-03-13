@@ -7,7 +7,7 @@
 class Node;
 class ListItem;
 
-class Queue: public ParentQueue
+class Queue : public ParentQueue
 {
 public:
 	Queue();
